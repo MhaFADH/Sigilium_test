@@ -17,7 +17,22 @@ recipe.ingredients.forEach((ingredient) => {
   `
   ;
 })
+mappedRecipe += "</div>"
+
+mappedRecipe += "<h2>Temps de préparation</h2><div>"
+
+Object.entries(recipe.timing).forEach(([key,value]) => {
+  mappedRecipe += `
+  <div class="card" style="width:18rem;">
+    <div class="card-body">
+      <h5 class="card-title">${key.toUpperCase()} - ${value.quantity} ${value.unit}</h5>
+    </div>
+  </div>
+  `}
+)
+
 mappedRecipe += "</div></div>"
+
 
 container.innerHTML = container.innerHTML.replace(
   "REPLACEME",mappedRecipe);
