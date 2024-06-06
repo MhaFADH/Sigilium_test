@@ -2,9 +2,8 @@ import recipe from "./recipe.json" with {type: "json"}
 
 const container = document.getElementsByClassName("container")[0];
 
-let mappedRecipe = "<div>"
+let mappedRecipe = "<div><h2>Ingredients</h2><div>"
 
-mappedRecipe += "<h2>Ingredients</h2><div>"
 recipe.ingredients.forEach((ingredient) => {
   mappedRecipe += `
   <div class="card" style="width: 18rem;">
@@ -17,9 +16,8 @@ recipe.ingredients.forEach((ingredient) => {
   `
   ;
 })
-mappedRecipe += "</div>"
 
-mappedRecipe += "<h2>Temps de préparation</h2><div>"
+mappedRecipe += "</div><h2>Temps de préparation</h2><div>"
 
 Object.entries(recipe.timing).forEach(([key,value]) => {
   mappedRecipe += `
@@ -30,6 +28,20 @@ Object.entries(recipe.timing).forEach(([key,value]) => {
   </div>
   `}
 )
+
+mappedRecipe += "</div><h2 >Etapes</h2><div>"
+recipe.steps.forEach((step) => {
+  mappedRecipe += `
+  <div class="card" style="width:44%;">
+    <div class="card-body">
+      <h5 class="card-title">Etape ${step.order}</h5>
+      ${step.ingredients.length > 0 ? `<p> ingredients: ${step.ingredients.map(ingredientId => recipe.ingredients.find(ingredient => ingredient.id === ingredientId).translated_name[0].fr).join(", ")} </p>`:""}
+      <p class="card-text">${step.description}</p>
+    </div>
+  </div>
+  `
+  ;
+})
 
 mappedRecipe += "</div></div>"
 
